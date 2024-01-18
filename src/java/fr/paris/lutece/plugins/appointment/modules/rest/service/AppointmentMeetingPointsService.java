@@ -139,7 +139,13 @@ public class AppointmentMeetingPointsService
                 Matcher matcher = ZIP_CITY_PATTERN.matcher( solrMeeting.getAddressText( ) );
                 if ( matcher.find( ) )
                 {
-                    meeting.setPublicAdress( matcher.group( 1 ).trim( ) );
+                    String publicAddress = matcher.group(1).trim();
+
+                    while (publicAddress.endsWith(","))
+                    {
+                        publicAddress = publicAddress.substring(0, publicAddress.length() - 1).trim();
+                    }
+                    meeting.setPublicAdress( publicAddress );
                     meeting.setZipCode( matcher.group( 2 ) );
                     meeting.setCityName( matcher.group( 3 ).trim( ) );
                 }
