@@ -94,7 +94,8 @@ public class SolrProvider implements IAppointmentDataProvider
             _strBaseUrl = AppPropertiesService.getProperty( PROPERTY_SOLR_BASE_URL );
         }
         _strRows = AppPropertiesService.getProperty( PROPERTY_SOLR_ROWS, "10000" );
-        _authenticator = new BasicAuthorizationAuthenticator( AppPropertiesService.getProperty( PROPERTY_SOLR_USERNAME ), AppPropertiesService.getProperty( PROPERTY_SOLR_PASSWORD ) );
+        _authenticator = new BasicAuthorizationAuthenticator( AppPropertiesService.getProperty( PROPERTY_SOLR_USERNAME ),
+                AppPropertiesService.getProperty( PROPERTY_SOLR_PASSWORD ) );
     }
 
     @Override
@@ -129,8 +130,8 @@ public class SolrProvider implements IAppointmentDataProvider
         query.append( AppointmentRestConstants.SOLR_QUERY_SELECT + AppointmentRestConstants.SOLR_QUERY_Q )
                 .append( encoder( AppointmentRestConstants.SOLR_QUERY_Q_VALUE ) );
         query.append( AppointmentRestConstants.SOLR_QUERY_FIELD );
-        query.append( encoder( SolrAppointmentSlotPOJO.SOLR_FIELD_UID + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrAppointmentSlotPOJO.SOLR_FIELD_DATE
-                + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrAppointmentSlotPOJO.SOLR_FIELD_URL ) );
+        query.append( encoder(
+                SolrAppointmentSlotPOJO.SOLR_FIELD_UID + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrAppointmentSlotPOJO.SOLR_FIELD_DATE + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrAppointmentSlotPOJO.SOLR_FIELD_URL ) );
         query.append( AppointmentRestConstants.SOLR_QUERY_FILTER_QUERY );
         query.append( SolrAppointmentSlotPOJO.SOLR_FIELD_DATE ).append( encoder( AppointmentRestConstants.SOLR_QUERY_COLON ) );
         query.append( encoder( AppointmentRestConstants.SOLR_QUERY_LB ) ).append( strStartDate ).append( encoder( AppointmentRestConstants.SOLR_QUERY_TO ) )
@@ -148,8 +149,8 @@ public class SolrProvider implements IAppointmentDataProvider
         query.append(
                 encoder( SolrAppointmentSlotPOJO.SOLR_FIELD_ENABLED + AppointmentRestConstants.SOLR_QUERY_COLON + AppointmentRestConstants.SOLR_QUERY_TRUE ) );
         query.append( AppointmentRestConstants.SOLR_QUERY_FILTER_QUERY );
-        query.append( encoder( SolrAppointmentSlotPOJO.SOLR_FIELD_APPOINTMENT_ACTIVE + AppointmentRestConstants.SOLR_QUERY_COLON
-                + AppointmentRestConstants.SOLR_QUERY_TRUE ) );
+        query.append( encoder(
+                SolrAppointmentSlotPOJO.SOLR_FIELD_APPOINTMENT_ACTIVE + AppointmentRestConstants.SOLR_QUERY_COLON + AppointmentRestConstants.SOLR_QUERY_TRUE ) );
         query.append( AppointmentRestConstants.SOLR_QUERY_FILTER_QUERY );
         query.append( SolrAppointmentSlotPOJO.SOLR_FIELD_NB_CONSECUTIVES_SLOTS ).append( encoder( AppointmentRestConstants.SOLR_QUERY_COLON ) );
         query.append( encoder( AppointmentRestConstants.SOLR_QUERY_LB ) ).append( documentNumber ).append( encoder( AppointmentRestConstants.SOLR_QUERY_TO ) )
@@ -182,9 +183,8 @@ public class SolrProvider implements IAppointmentDataProvider
         query.append( AppointmentRestConstants.SOLR_QUERY_SELECT + AppointmentRestConstants.SOLR_QUERY_Q )
                 .append( encoder( AppointmentRestConstants.SOLR_QUERY_Q_VALUE ) );
         query.append( AppointmentRestConstants.SOLR_QUERY_FIELD );
-        query.append( encoder( SolrMeetingPointPOJO.SOLR_FIELD_UID + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrMeetingPointPOJO.SOLR_FIELD_TITLE
-                + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrMeetingPointPOJO.SOLR_FIELD_ADDRESS + AppointmentRestConstants.SOLR_QUERY_COMMA
-                + SolrMeetingPointPOJO.SOLR_FIELD_GEOLOC ) );
+        query.append( encoder(
+                SolrMeetingPointPOJO.SOLR_FIELD_UID + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrMeetingPointPOJO.SOLR_FIELD_TITLE + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrMeetingPointPOJO.SOLR_FIELD_ADDRESS + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrMeetingPointPOJO.SOLR_FIELD_GEOLOC + AppointmentRestConstants.SOLR_QUERY_COMMA + SolrMeetingPointPOJO.SOLR_FIELD_ICON_URL ) );
         query.append( AppointmentRestConstants.SOLR_QUERY_FILTER_QUERY );
         query.append( SolrMeetingPointPOJO.SOLR_FIELD_TYPE ).append( encoder( AppointmentRestConstants.SOLR_QUERY_COLON ) )
                 .append( SolrMeetingPointPOJO.SOLR_FIELD_TYPE_APPOINTMENT );
