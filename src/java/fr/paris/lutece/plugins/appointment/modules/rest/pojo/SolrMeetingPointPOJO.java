@@ -45,6 +45,7 @@ public class SolrMeetingPointPOJO
     public static final String SOLR_FIELD_GEOLOC = "appointment_geoloc";
     public static final String SOLR_FIELD_TYPE = "type";
     public static final String SOLR_FIELD_TYPE_APPOINTMENT = "appointment";
+    public static final String SOLR_FIELD_ICON_URL = "appointment_form_icon_url_string";
 
     @JsonProperty( SOLR_FIELD_UID )
     String _strUid;
@@ -54,6 +55,8 @@ public class SolrMeetingPointPOJO
     String _strAddressText;
     @JsonProperty( SOLR_FIELD_GEOLOC )
     String _strGeoloc;
+    @JsonProperty( SOLR_FIELD_ICON_URL )
+    String _strIconUrl;
 
     public String getUid( )
     {
@@ -93,5 +96,15 @@ public class SolrMeetingPointPOJO
     public void setGeoloc( String strGeoloc )
     {
         this._strGeoloc = strGeoloc;
+    }
+
+    public String getIconUrl( )
+    {
+        return _strIconUrl;
+    }
+
+    public void setIconUrl( String strIconUrl )
+    {
+        this._strIconUrl = strIconUrl;
     }
 }

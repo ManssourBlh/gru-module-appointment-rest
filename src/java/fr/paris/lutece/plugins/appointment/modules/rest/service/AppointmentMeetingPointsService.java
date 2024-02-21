@@ -90,30 +90,28 @@ public class AppointmentMeetingPointsService
         try
         {
             String response = null;
-            response = _dataProvider.getManagedMeetingPoints();
+            response = _dataProvider.getManagedMeetingPoints( );
 
-            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper( );
             SolrResponseMeetingPointPOJO solrResponse = null;
 
-            solrResponse = objectMapper.readValue(response, SolrResponseMeetingPointPOJO.class);
+            solrResponse = objectMapper.readValue( response, SolrResponseMeetingPointPOJO.class );
 
+            List<SolrMeetingPointPOJO> solrMeetings = new ArrayList<>( );
 
-
-        List<SolrMeetingPointPOJO> solrMeetings = new ArrayList<>( );
-
-        for ( SolrResponseMeetingPointPOJO.Group group : solrResponse.getGrouped( ).getGroupedByUidForm( ).getGroups( ) )
-        {
-            if ( group.getGroupValue( ) != null )
+            for ( SolrResponseMeetingPointPOJO.Group group : solrResponse.getGrouped( ).getGroupedByUidForm( ).getGroups( ) )
             {
-                solrMeetings.addAll( group.getDocList( ).getDocs( ) );
+                if ( group.getGroupValue( ) != null )
+                {
+                    solrMeetings.addAll( group.getDocList( ).getDocs( ) );
+                }
             }
-        }
 
-        manegedPoints = transform( solrMeetings );
+            manegedPoints = transform( solrMeetings );
 
-        return manegedPoints;
+            return manegedPoints;
         }
-        catch(IOException | HttpAccessException e)
+        catch( IOException | HttpAccessException e )
         {
             AppLogService.error( e.getMessage( ), e );
             throw new AppException( e.getMessage( ), e );
@@ -130,9 +128,9 @@ public class AppointmentMeetingPointsService
             meeting.setId( solrMeeting.getUid( ) );
             if ( solrMeeting.getGeoloc( ) != null && solrMeeting.getGeoloc( ).contains( "," ) )
             {
-                String [ ] geoloc = solrMeeting.getGeoloc( ).split( "," );
-                meeting.setLatitude( geoloc [0].trim( ) );
-                meeting.setLongitude( geoloc [1].trim( ) );
+                String[] geoloc = solrMeeting.getGeoloc( ).split( "," );
+                meeting.setLatitude( geoloc[0].trim( ) );
+                meeting.setLongitude( geoloc[1].trim( ) );
             }
             if ( solrMeeting.getAddressText( ) != null )
             {
@@ -152,6 +150,7 @@ public class AppointmentMeetingPointsService
             meeting.setName( solrMeeting.getTitle( ) );
             meeting.setWebsite( _strWebsiteURL );
             meetingPoints.add( meeting );
+            meeting.setCityLogo( solrMeeting.getIconUrl( ) );
         }
 
         return meetingPoints;
